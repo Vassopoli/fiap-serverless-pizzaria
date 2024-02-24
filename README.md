@@ -20,6 +20,13 @@ Inside project folder, once having your aws credentials configured, you can exec
 Remember to change the bucket name, it should be unique.
 Change it on [serverless.yml](serverless.yml) and [putEventsPizzaria.py](putEventsPizzaria.py) files
 
+You can achieve that with the command (Just change YOUR_NEW_BUCKET to the desired bucket name)
+
+```shell
+sed -i 's/pizzaria-edson-reimon-vassa-wendel/YOUR_NEW_BUCKET/g' serverless.yml
+sed -i 's/pizzaria-edson-reimon-vassa-wendel/YOUR_NEW_BUCKET/g' putEventsPizzaria.py
+```
+
 ### 2. Install project dependencies
 
 ```shell
