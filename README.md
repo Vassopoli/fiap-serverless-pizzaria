@@ -9,7 +9,7 @@ You can install those dependencies the code below
 
 ```shell
 npm install -g serverless
-sudo apt update -y && sudo apt  install jq -y
+sudo apt update -y && sudo apt install jq -y
 ```
 
 # Deploying and testing the project
