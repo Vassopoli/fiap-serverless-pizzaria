@@ -24,7 +24,6 @@ functions:
           event: s3:ObjectCreated:*
           rules:
             - prefix: pronto/
-          existing: true
 
   order-preparing:
     handler: handler.preparing
