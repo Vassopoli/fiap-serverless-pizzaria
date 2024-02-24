@@ -1,6 +1,8 @@
 # Install Deps
 
+```shell
 pip3 install -r requirements.txt
+```
 
 # Deploy
 
