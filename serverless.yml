@@ -1,0 +1,43 @@
+service: fiap-serverless-pizzaria
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.11
+  memorySize: 128
+  region: 'us-east-1'
+  timeout: 30
+  iam:
+    role: !Sub arn:aws:iam::${AWS::AccountId}:role/LabRole
+
+functions:
+  event-router:
+    handler: handler.eventRouter
+    events:
+      - s3:
+          bucket: pizzaria-edson-reimon-vassa-wendel
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: em-preparacao/
+      - s3:
+          bucket: pizzaria-edson-reimon-vassa-wendel
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: pronto/
+          existing: true
+
+  order-preparing:
+    handler: handler.preparing
+    events:
+      - sqs:
+          arn: arn:aws:sqs:${aws:region}:${aws:accountId}:em-preparacao-pizzaria
+          batchSize: 1
+          enabled: true
+
+  order-done:
+    handler: handler.done
+    events:
+      - sqs:
+          arn: arn:aws:sqs:${aws:region}:${aws:accountId}:pronto-pizzaria
+          batchSize: 1
+          enabled: true
